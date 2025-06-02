@@ -1,33 +1,41 @@
-<div class="relative w-full mx-auto h-screen bg-gray-100 overflow-hidden rounded-xl shadow-lg">
+<div class="relative w-full mx-auto h-screen bg-orange-50 overflow-hidden rounded-xl shadow-lg">
   <!-- Slide panel -->
-  <div class="absolute top-0 left-0 w-1/2 h-full bg-blue-500 text-white
-            flex flex-col items-center justify-center transition-transform duration-700 ease-in-out"
-       [ngClass]="{ 'translate-x-0': isLogin, 'translate-x-full': !isLogin }"
+  <div class="absolute top-0 left-0 w-1/2 h-full bg-blue-500 text-white flex flex-col items-center justify-center
+              transition-transform duration-1000 ease-in-out"
+       [ngClass]="{ 'translate-x-0': isLogin, 'translate-x-full': !isLogin,
+                    'rounded-r-full': isLogin, 'rounded-l-full': !isLogin }"
+       [style.zIndex]="isLogin ? '10' : '10'"
   >
-    <h2 class="text-3xl font-bold mb-2">{{ isLogin ? 'Hello, Welcome!' : 'Welcome Back!' }}</h2>
-    <p class="mb-4 text-sm">{{ isLogin ? "Don\'t have an account?" : "Already have an account?" }}</p>
-    <button (click)="toggleForm()" class="px-6 py-2 border border-white rounded hover:bg-white hover:text-blue-500 transition">
+    <h2 class="mb-4 font-black text-3xl tracking-wide">{{ isLogin ? 'Hello, Welcome!' : 'Welcome Back!' }}</h2>
+    <p class="mb-3 font-serif text-md">{{ isLogin ? "Don\'t have an account?" : "Already have an account?" }}</p>
+    <button (click)="toggleForm()" class="px-10 py-2 border-white border-2 rounded-lg
+                              hover:bg-gray-100 hover:text-blue-500 font-mono">
       {{ isLogin ? 'Register' : 'Login' }}
     </button>
   </div>
 
   <!-- Form container -->
-  <div class="absolute top-0 right-0 w-1/2 h-full bg-white flex items-center justify-center transition-transform duration-700 ease-in-out"
+  <div class="absolute top-0 right-0 w-1/2 h-full bg-orange-50 flex items-center justify-center
+              transition-transform duration-1000 ease-in-out"
        [ngClass]="{ 'translate-x-0': isLogin, '-translate-x-full': !isLogin }"
+       [style.zIndex]="isLogin ? '5' : '5'"
   >
     <form class="w-3/4 space-y-4">
-      <h2 class="text-2xl font-bold text-gray-800 text-center">
+      <h2 class="text-2xl font-extrabold text-gray-700 text-center tracking-wide">
         {{ isLogin ? 'Login' : 'Registration' }}
       </h2>
 
-      <input type="text" placeholder="Username" class="w-full px-4 py-2 border rounded" />
       <ng-container *ngIf="!isLogin">
-        <input type="email" placeholder="Email" class="w-full px-4 py-2 border rounded" />
+        <input type="email" placeholder="example: you@example.com" class="peer w-full px-4 py-2 border rounded placeholder:text-gray-500" />
+        <p class="invisible peer-invalid:visible peer-invalid:text-red-600">Please provide a valid email address.</p>
       </ng-container>
-      <input type="password" placeholder="Password" class="w-full px-4 py-2 border rounded" />
 
-      <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-        {{ isLogin ? 'Login' : 'Register' }}
+      <input type="text" placeholder="Username" class="w-full px-4 py-2 border rounded placeholder:text-gray-500 placeholder:italic" />
+      <input type="password" placeholder="Password" class="w-full px-4 py-2 border rounded placeholder:text-gray-500 placeholder:italic" />
+
+
+      <button (click)="onSubmit()" class="w-full bg-blue-500 font-mono text-white py-2 rounded
+      hover:bg-blue-600"> {{ isLogin ? 'Login' : 'Register' }}
       </button>
     </form>
   </div>
