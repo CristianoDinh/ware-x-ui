@@ -1,1 +1,34 @@
-<p>user-auth works!</p>
+<div class="relative w-full mx-auto h-screen bg-gray-100 overflow-hidden rounded-xl shadow-lg">
+  <!-- Slide panel -->
+  <div class="absolute top-0 left-0 w-1/2 h-full bg-blue-500 text-white
+            flex flex-col items-center justify-center transition-transform duration-700 ease-in-out"
+       [ngClass]="{ 'translate-x-0': isLogin, 'translate-x-full': !isLogin }"
+  >
+    <h2 class="text-3xl font-bold mb-2">{{ isLogin ? 'Hello, Welcome!' : 'Welcome Back!' }}</h2>
+    <p class="mb-4 text-sm">{{ isLogin ? "Don\'t have an account?" : "Already have an account?" }}</p>
+    <button (click)="toggleForm()" class="px-6 py-2 border border-white rounded hover:bg-white hover:text-blue-500 transition">
+      {{ isLogin ? 'Register' : 'Login' }}
+    </button>
+  </div>
+
+  <!-- Form container -->
+  <div class="absolute top-0 right-0 w-1/2 h-full bg-white flex items-center justify-center transition-transform duration-700 ease-in-out"
+       [ngClass]="{ 'translate-x-0': isLogin, '-translate-x-full': !isLogin }"
+  >
+    <form class="w-3/4 space-y-4">
+      <h2 class="text-2xl font-bold text-gray-800 text-center">
+        {{ isLogin ? 'Login' : 'Registration' }}
+      </h2>
+
+      <input type="text" placeholder="Username" class="w-full px-4 py-2 border rounded" />
+      <ng-container *ngIf="!isLogin">
+        <input type="email" placeholder="Email" class="w-full px-4 py-2 border rounded" />
+      </ng-container>
+      <input type="password" placeholder="Password" class="w-full px-4 py-2 border rounded" />
+
+      <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+        {{ isLogin ? 'Login' : 'Register' }}
+      </button>
+    </form>
+  </div>
+</div>
